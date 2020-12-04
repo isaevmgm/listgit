@@ -1,0 +1,39 @@
+.container {
+    width: 600px;
+    margin: auto;
+}
+
+.header {
+    border-bottom: 3px solid midnightblue;
+    font-size: 2em;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.todo {
+    padding: 20px 10px;
+    font-size: 20px;
+    border-bottom: 1px solid darkblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.spin {
+    margin: 5px;
+}
+
+.btn {
+    background-color: darkblue;
+    color: white;
+}
+
+.btn[disabled] {
+    cursor: default;
+    background-color: #00339999;
+}

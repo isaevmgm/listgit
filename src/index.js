@@ -1,17 +1,99 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './Style.css';
+import {applyMiddleware, createStore} from "redux";
+import thunk from "redux-thunk";
+import {Provider} from "react-redux";
+
+const initialState = {
+    todos: [],
+    loading: false
+}
+
+const reducer = (state = initialState, action) => {
+    switch (action.type){
+        case 'start_checking':
+            return {
+                ...state,
+                todos: state.todos.map((todo) => {
+                    if(todo.id === action.payload) {
+                        return{
+                            ...todo,
+                            checking: true
+                        }
+                    }
+
+                    return todo
+                })
+            }
+
+        case 'check':
+            return {
+                ...state,
+                todos: state.todos.map((todo) => {
+                    if(todo.id === action.payload) {
+                        return{
+                            ...todo,
+                            completed: !todo.completed,
+                            checking: false
+                        }
+                    }
+
+                    return todo
+                })
+            }
+
+        case 'start_deleting':
+            return {
+                ...state,
+                todos: state.todos.map((todo) => {
+                    if (todo.id === action.payload) {
+                        return{
+                            ...todo,
+                            deleting: true
+                        }
+                    }
+
+                    return todo
+                })
+            }
+
+        case 'delete':
+            return {
+                ...state,
+                todos: state.todos.filter((todo) => {
+                    if(todo.id === action.payload) {
+                        return false
+                    }
+
+                    return true
+                })
+            }
+
+        case 'start':
+            return {
+                ...state,
+                loading: true
+            }
+
+        case 'load':
+            return {
+                ...state,
+                todos: action.payload,
+                loading: false
+            }
+
+        default:
+            return state
+    }
+}
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
