@@ -25,7 +25,7 @@ function App() {
     return (
         <div className="container">
             <div className="header">
-                Список
+                Email addresses:
             </div>
             {loading ? 'Загрузка' : (
                 todos.map((todo) => {
@@ -45,7 +45,7 @@ function App() {
                                         onChange={() => handleCheck(todo.id, todo.completed)}/>
                                 )}
                             </div>
-                            {todo.title}
+                            {todo.email}
                             <div>
                                 <button className="btn"
                                 onClick={() => handleDelete(todo.id)}

@@ -1,7 +1,7 @@
 export  const loadTodos = () => {
     return(dispatch) => {
         dispatch({type: 'start'})
-        fetch("https://jsonplaceholder.typicode.com/todos")
+        fetch("https://jsonplaceholder.typicode.com/comments/?_limit=50")
             .then((response) => response.json())
             .then((json) => {
                 dispatch({
@@ -15,7 +15,7 @@ export  const loadTodos = () => {
 export const removeTodo = (id) => {
     return(dispatch) => {
         dispatch({type: 'start_deleting', payload: id})
-        fetch(`https://jsonplaceholder.typicode.com/todos${id}`, {
+        fetch(`https://jsonplaceholder.typicode.com/comments/?_limit=50${id}`, {
             method: 'DELETE'
         })
             .then((response) => response.json())
@@ -31,7 +31,7 @@ export const removeTodo = (id) => {
 export const checkTodo = (id, completed) => {
     return(dispatch) => {
         dispatch({type: 'start_checking', payload: id})
-        fetch(`https://jsonplaceholder.typicode.com/todos${id}`, {
+        fetch(`https://jsonplaceholder.typicode.com/comments/?_limit=50${id}`, {
             method: 'PATCH',
             body: JSON.stringify({completed: !completed}),
             headers: {
